@@ -26,12 +26,20 @@ function handleActionTypeChange(actionTypeSelect, pageTitle, contentContainer) {
   pageTitle.textContent = actionTypeSelect.options[actionTypeSelect.selectedIndex].text;
   contentContainer.innerHTML = "";
 
+  // Hide the actionType select element after an option is selected
+  actionTypeSelect.style.display = "none";
+
+  // Hide the associated label for actionType
+  const actionTypeLabel = document.getElementById("actionTypeLabel");
+  actionTypeLabel.style.display = "none";
+
   if (selectedAction === "hardwareTurnIn") {
     generateHardwareTurnInForm(contentContainer);
   } else if (selectedAction === "separation") {
     generateSeparationForm(contentContainer);
   }
 }
+
 
 
 // Attach an event listener to a select element to handle "Other" option
