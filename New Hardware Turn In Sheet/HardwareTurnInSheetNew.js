@@ -6,10 +6,10 @@ function init() {
 
   // Center-align the page title
   pageTitle.style.textAlign = "center";
-  pageTitle.style.fontSize = "50px"; 
+  pageTitle.style.fontSize = "70px"; 
 
   pageTitle.style.paddingBottom = "25px";  // Change this value to adjust the padding
-  pageTitle.style.marginTop = "0px";  // Change this value to adjust the padding
+  pageTitle.style.marginTop = "-20px";  // Change this value to adjust the padding
 
   // Underline the title
   pageTitle.style.textDecoration = "underline";
