@@ -2,44 +2,22 @@
 <html>
 
 <head>
-    <title> Hardware Sheet</title>
+    <title>Hardware Sheet</title>
     <link rel="stylesheet" type="text/css" href="HardwareTurnInSheetNew.css">
 </head>
 
 <body>
-    <h1>Hardware Sheet</h1>
+    <h1 id="pageTitle"></h1>
     <form id="actionForm" action="submit_form.php" method="post">
         <label for="actionType">Select Action Type:</label>
         <select name="actionType" id="actionType">
+            <option value=""></option>
             <option value="hardwareTurnIn">Hardware Turn In</option>
             <option value="separation">Separation</option>
         </select>
     </form>
 
-    <!-- Separation section -->
-    <div id="separationSection" style="display: none;">
-        <form id="separationForm" action="submit_separation.php" method="post">
-            <label for="colleague">Colleague:</label>
-            <input type="text" id="colleague" name="colleague"><br>
-
-            <label for="assetNumber">Asset Number:</label>
-            <input type="text" id="assetNumber" name="assetNumber"><br>
-
-            <label for="technician">Technician:</label>
-            <input type="text" id="technician" name="technician"><br>
-
-            <label for="hardwareType">Hardware Type:</label>
-            <input type="text" id="hardwareType" name="hardwareType"><br>
-
-            <label for="ritmNumber">RITM Number:</label>
-            <input type="text" id="ritmNumber" name="ritmNumber"><br>
-        </form>
-    </div>
-
-    <!-- Hardware Turn-In section -->
-    <div id="hardwareTurnInSection" style="display: none;">
- 
-    </div>
+    <div id="contentContainer"></div>
 
     <script src="HardwareTurnInSheetNew.js"></script>
 </body>
