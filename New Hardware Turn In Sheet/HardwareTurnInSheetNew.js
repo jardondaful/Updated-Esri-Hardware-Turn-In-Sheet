@@ -1,145 +1,156 @@
-const actionTypeSelect = document.getElementById("actionType");
-const contentContainer = document.getElementById("contentContainer");
-const pageTitle = document.getElementById("pageTitle");
+// Initialize DOM elements and event listeners
+function init() {
+  const actionTypeSelect = document.getElementById("actionType");
+  const contentContainer = document.getElementById("contentContainer");
+  const pageTitle = document.getElementById("pageTitle");
 
-actionTypeSelect.addEventListener("change", function () {
-    pageTitle.textContent = actionTypeSelect.options[actionTypeSelect.selectedIndex].text;
+  actionTypeSelect.addEventListener("change", function() {
+    handleActionTypeChange(actionTypeSelect, pageTitle, contentContainer);
+  });
+}
 
-    const selectedAction = actionTypeSelect.value;
-    contentContainer.innerHTML = "";
+// Handle changes to the actionType select element
+function handleActionTypeChange(actionTypeSelect, pageTitle, contentContainer) {
+  const selectedAction = actionTypeSelect.value;
+  pageTitle.textContent = actionTypeSelect.options[actionTypeSelect.selectedIndex].text;
+  contentContainer.innerHTML = "";
 
-    if (selectedAction === "hardwareTurnIn") {
-        generateHardwareTurnInForm();
-    } else if (selectedAction === "separation") {
-        generateSeparationForm();
+  if (selectedAction === "hardwareTurnIn") {
+    generateHardwareTurnInForm(contentContainer);
+  } else if (selectedAction === "separation") {
+    generateSeparationForm(contentContainer);
+  }
+}
+
+
+// Attach an event listener to a select element to handle "Other" option
+function attachOtherOptionListener(select) { // Added this function
+  select.addEventListener('change', function() {
+    if (this.value === "Other") {
+      const otherInput = createInput("text", "other");
+      this.parentNode.appendChild(otherInput);
+    } else {
+      const existingOtherInput = this.parentNode.querySelector('input[name="other"]');
+      if (existingOtherInput) {
+        existingOtherInput.remove();
+      }
     }
-});
-
-function generateHardwareTurnInForm() {
-    const form = document.createElement("form");
-    form.id = "hardwareTurnInForm";
-    form.action = "submit_hardware_turn_in.php";
-    form.method = "post";
-
-    const gradeLabel = createLabel("Select Grade:");
-    const gradeSelect = createSelect("grade", [
-        "Grade A", "Grade B", "Recycle", "Donation", "Other"
-    ]);
-
-    const hardwareTypeLabel = createLabel("Select Hardware Type:");
-    const hardwareTypeSelect = createSelect("hardwareType", [
-        "Desktop", "Laptop", "Monitor", "Dock/Port Rep",
-        "Printer", "Mobile Device", "Server", "Other"
-    ]);
-
-    const assetTagLabel = createLabel("Asset Tag:");
-    const assetTagInput = createInput("text", "assetTag");
-
-    const manufacturerLabel = createLabel("Manufacturer:");
-    const manufacturerInput = createInput("text", "manufacturer");
-
-    const modelLabel = createLabel("Model:");
-    const modelInput = createInput("text", "model");
-
-    const technicianLabel = createLabel("Technician:");
-    const technicianInput = createInput("text", "technician");
-
-    const notesLabel = createLabel("Notes:");
-    const notesTextarea = document.createElement("textarea");
-    notesTextarea.id = "notes";
-    notesTextarea.name = "notes";
-    notesTextarea.rows = 5;
-    notesTextarea.cols = 50;
-
-    const submitButton = document.createElement("input");
-    submitButton.type = "submit";
-    submitButton.value = "Submit";
-
-    form.appendChild(gradeLabel);
-    form.appendChild(gradeSelect);
-    form.appendChild(hardwareTypeLabel);
-    form.appendChild(hardwareTypeSelect);
-    form.appendChild(assetTagLabel);
-    form.appendChild(assetTagInput);
-    form.appendChild(manufacturerLabel);
-    form.appendChild(manufacturerInput);
-    form.appendChild(modelLabel);
-    form.appendChild(modelInput);
-    form.appendChild(technicianLabel);
-    form.appendChild(technicianInput);
-    form.appendChild(notesLabel);
-    form.appendChild(notesTextarea);
-    form.appendChild(submitButton);
-
-    contentContainer.appendChild(form);
+  });
 }
 
-function generateSeparationForm() {
-    const form = document.createElement("form");
-    form.id = "separationForm";
-    form.action = "submit_separation.php";
-    form.method = "post";
+// Generate a form with given fields and attach to the container
+function generateForm(formId, action, formFields, container) {
+  const form = document.createElement("form");
+  form.id = formId;
+  form.action = action;
+  form.method = "post";
 
-    const colleagueLabel = createLabel("Colleague:");
-    const colleagueInput = createInput("text", "colleague");
+  formFields.forEach(field => {
+    const label = createLabel(field.label);
+    let input;
+    if (field.type === "select") {
+      input = createSelect(field.name, field.options);
+      attachOtherOptionListener(input); // Attach listener for "Other" option
+    } else if (field.type === "textarea") {
+      input = createTextarea(field.name);
+    } else {
+      input = createInput(field.type, field.name);
+    }
+    form.appendChild(label);
+    form.appendChild(input);
+  });
 
-    const assetNumberLabel = createLabel("Asset Number:");
-    const assetNumberInput = createInput("text", "assetNumber");
+  container.appendChild(form);
+}
+// Generate hardware turn-in form
+function generateHardwareTurnInForm(container) {
+  const formFields = [
+    { label: "Select Grade:", name: "grade", type: "select", options: ["(Select Grade)", "Grade A", "Grade B", "Recycle", "Donation", "Other"] },
+    { label: "Select Hardware Type:", name: "hardwareType", type: "select", options: ["(Select Hardware Type)", "Desktop", "Laptop", "Monitor", "Dock/Port Rep", "Printer", "Mobile Device", "Server", "Other"] },
+    { label: "Asset Tag:", name: "assetTag", type: "text" },
+    { label: "Manufacturer:", name: "manufacturer", type: "text" },
+    { label: "Model:", name: "model", type: "text" },
+    { label: "Technician:", name: "technician", type: "text" },
+    { label: "Notes (once done, press Ctrl-P or Cmd-P to generate a print view of the form):", name: "notes", type: "textarea" }
+  ];
 
-    const technicianLabel = createLabel("Technician:");
-    const technicianInput = createInput("text", "technician");
-
-    const hardwareTypeLabel = createLabel("Hardware Type:");
-    const hardwareTypeInput = createInput("text", "hardwareType");
-
-    const ritmNumberLabel = createLabel("RITM Number:");
-    const ritmNumberInput = createInput("text", "ritmNumber");
-
-    const submitButton = document.createElement("input");
-    submitButton.type = "submit";
-    submitButton.value = "Submit";
-
-    form.appendChild(colleagueLabel);
-    form.appendChild(colleagueInput);
-    form.appendChild(assetNumberLabel);
-    form.appendChild(assetNumberInput);
-    form.appendChild(technicianLabel);
-    form.appendChild(technicianInput);
-    form.appendChild(hardwareTypeLabel);
-    form.appendChild(hardwareTypeInput);
-    form.appendChild(ritmNumberLabel);
-    form.appendChild(ritmNumberInput);
-    form.appendChild(submitButton);
-
-    contentContainer.appendChild(form);
+  generateForm("hardwareTurnInForm", "submit_hardware_turn_in.php", formFields, container);
 }
 
+// Generate separation form
+function generateSeparationForm(container) {
+  const formFields = [
+    { label: "Colleague:", name: "colleague", type: "text" },
+    { label: "Asset Number:", name: "assetNumber", type: "text" },
+    { label: "Technician:", name: "technician", type: "text" },
+    { label: "Hardware Type:", name: "hardwareType", type: "text" },
+    { label: "RITM Number:", name: "ritmNumber", type: "text" },
+    { label: "Notes (once done, press Ctrl-P or Cmd-P to generate a print view of the form):", name: "notes", type: "textarea" }
+  ];
+
+  generateForm("separationForm", "submit_separation.php", formFields, container);
+}
+
+// Generate a form with given fields and attach to the container
+function generateForm(formId, action, formFields, container) {
+  const form = document.createElement("form");
+  form.id = formId;
+  form.action = action;
+  form.method = "post";
+
+  formFields.forEach(field => {
+    const label = createLabel(field.label);
+    let input;
+    if (field.type === "select") {
+      input = createSelect(field.name, field.options);
+    } else if (field.type === "textarea") {
+      input = createTextarea(field.name);
+    } else {
+      input = createInput(field.type, field.name);
+    }
+    form.appendChild(label);
+    form.appendChild(input);
+  });
+
+  container.appendChild(form);
+}
+
+// Create a label element
 function createLabel(text) {
-    const label = document.createElement("label");
-    label.textContent = text;
-    return label;
+  const label = document.createElement("label");
+  label.textContent = text;
+  return label;
 }
 
+// Create a select element
 function createSelect(name, options) {
-    const select = document.createElement("select");
-    select.name = name;
-    select.classList.add("input-field"); // Add a class for styling
-
-    options.forEach(optionText => {
-        const option = document.createElement("option");
-        option.value = optionText;
-        option.textContent = optionText;
-        select.appendChild(option);
-    });
-
-    return select;
+  const select = document.createElement("select");
+  select.name = name;
+  options.forEach(optionText => {
+    const option = document.createElement("option");
+    option.value = optionText;
+    option.textContent = optionText;
+    select.appendChild(option);
+  });
+  return select;
 }
 
+// Create an input element
 function createInput(type, name) {
-    const input = document.createElement("input");
-    input.type = type;
-    input.name = name;
-    input.classList.add("input-field"); // Add a class for styling
-    return input;
+  const input = document.createElement("input");
+  input.type = type;
+  input.name = name;
+  return input;
 }
 
+// Create a textarea element
+function createTextarea(name) {
+  const textarea = document.createElement("textarea");
+  textarea.name = name;
+  textarea.rows = 5;
+  textarea.cols = 50;
+  return textarea;
+}
+
+// Run the init function when the document is fully loaded
+document.addEventListener("DOMContentLoaded", init);
