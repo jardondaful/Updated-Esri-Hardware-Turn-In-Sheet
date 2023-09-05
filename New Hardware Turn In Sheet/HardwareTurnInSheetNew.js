@@ -4,10 +4,21 @@ function init() {
   const contentContainer = document.getElementById("contentContainer");
   const pageTitle = document.getElementById("pageTitle");
 
+  // Center-align the page title
+  pageTitle.style.textAlign = "center";
+  pageTitle.style.fontSize = "50px"; 
+
+  pageTitle.style.paddingBottom = "25px";  // Change this value to adjust the padding
+  pageTitle.style.marginTop = "0px";  // Change this value to adjust the padding
+
+  // Underline the title
+  pageTitle.style.textDecoration = "underline";
+
   actionTypeSelect.addEventListener("change", function() {
     handleActionTypeChange(actionTypeSelect, pageTitle, contentContainer);
   });
 }
+
 
 // Handle changes to the actionType select element
 function handleActionTypeChange(actionTypeSelect, pageTitle, contentContainer) {
@@ -68,7 +79,7 @@ function generateHardwareTurnInForm(container) {
     { label: "Select Grade:", name: "grade", type: "select", options: ["(Select Grade)", "Grade A", "Grade B", "Recycle", "Donation", "Other"] },
     { label: "Select Hardware Type:", name: "hardwareType", type: "select", options: ["(Select Hardware Type)", "Desktop", "Laptop", "Monitor", "Dock/Port Rep", "Printer", "Mobile Device", "Server", "Other"] },
     { label: "Asset Tag:", name: "assetTag", type: "text" },
-    { label: "Manufacturer:", name: "manufacturer", type: "text" },
+    { label: "Manufacturer (Dell, Apple, etc.):", name: "manufacturer", type: "text" },
     { label: "Model:", name: "model", type: "text" },
     { label: "Technician:", name: "technician", type: "text" },
     { label: "Notes (once done, press Ctrl-P or Cmd-P to generate a print view of the form):", name: "notes", type: "textarea" }
@@ -147,7 +158,7 @@ function createInput(type, name) {
 function createTextarea(name) {
   const textarea = document.createElement("textarea");
   textarea.name = name;
-  textarea.rows = 5;
+  textarea.rows = 4;
   textarea.cols = 50;
   return textarea;
 }
