@@ -1,29 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Simple Form</title>
+    <title> Hardware Sheet</title>
+    <link rel="stylesheet" type="text/css" href="HardwareTurnInSheetNew.css">
 </head>
+
 <body>
-  <h1>Simple Form</h1>
-  <form id="myForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
-    <br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-    <br>
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender">
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select>
-    <br>
-    <button type="submit">Submit</button>
-  </form>
-  <script src="script.js"></script>
+    <h1>Hardware Sheet</h1>
+    <form id="actionForm" action="submit_form.php" method="post">
+        <label for="actionType">Select Action Type:</label>
+        <select name="actionType" id="actionType">
+            <option value="hardwareTurnIn">Hardware Turn In</option>
+            <option value="separation">Separation</option>
+        </select>
+    </form>
+
+    <!-- Separation section -->
+    <div id="separationSection" style="display: none;">
+        <form id="separationForm" action="submit_separation.php" method="post">
+            <label for="colleague">Colleague:</label>
+            <input type="text" id="colleague" name="colleague"><br>
+
+            <label for="assetNumber">Asset Number:</label>
+            <input type="text" id="assetNumber" name="assetNumber"><br>
+
+            <label for="technician">Technician:</label>
+            <input type="text" id="technician" name="technician"><br>
+
+            <label for="hardwareType">Hardware Type:</label>
+            <input type="text" id="hardwareType" name="hardwareType"><br>
+
+            <label for="ritmNumber">RITM Number:</label>
+            <input type="text" id="ritmNumber" name="ritmNumber"><br>
+        </form>
+    </div>
+
+    <!-- Hardware Turn-In section -->
+    <div id="hardwareTurnInSection" style="display: none;">
+ 
+    </div>
+
+    <script src="HardwareTurnInSheetNew.js"></script>
 </body>
+
 </html>
