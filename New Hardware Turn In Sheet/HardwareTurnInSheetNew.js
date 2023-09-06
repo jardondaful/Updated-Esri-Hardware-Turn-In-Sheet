@@ -88,7 +88,7 @@ function generateForm(formId, action, formFields, container) {
 // Generate hardware turn-in form
 function generateHardwareTurnInForm(container) {
   const formFields = [
-    { label: "Select Grade (click refresh to return to sheet selection): ", name: "grade", type: "select", options: ["","(Select Grade)", "Grade A", "Grade B", "Recycle", "Donation", "Other"] },
+    { label: "Select Grade (Ctrl-R, Cmd-R, or click refresh to return to sheet selection): ", name: "grade", type: "select", options: ["","(Select Grade)", "Grade A", "Grade B", "Recycle", "Donation", "Other"] },
     { label: "Select Hardware Type:", name: "hardwareType", type: "select", options: ["","(Select Hardware Type)", "Desktop", "Laptop", "Monitor", "Dock/Port Rep", "Printer", "Mobile Device", "Server", "Other"] },
     { label: "Asset Tag:", name: "assetTag", type: "text" },
     { label: "Manufacturer (Dell, Apple, etc.):", name: "manufacturer", type: "text" },
@@ -103,7 +103,7 @@ function generateHardwareTurnInForm(container) {
 // Generate separation form
 function generateSeparationForm(container) {
   const formFields = [
-    { label: "Colleague (click refresh to return to sheet selection):", name: "colleague", type: "text" },
+    { label: "Colleague (Ctrl-R, Cmd-R, or click refresh to return to sheet selection):", name: "colleague", type: "text" },
     { label: "Asset Number:", name: "assetNumber", type: "text" },
     { label: "Technician:", name: "technician", type: "text" },
     { label: "Hardware Type:", name: "hardwareType", type: "text" },
@@ -116,7 +116,7 @@ function generateSeparationForm(container) {
 
 function generateFlowDownForm(container) {
   const formFields = [
-    { label: "Colleague (click refresh to return to sheet selection):", name: "colleague", type: "text" },
+    { label: "Colleague (Ctrl-R, Cmd-R, or click refresh to return to sheet selection):", name: "colleague", type: "text" },
     { label: "Asset Number:", name: "assetNumber", type: "text" },
     { label: "Technician:", name: "technician", type: "text" },
     { label: "Hardware Type:", name: "hardwareType", type: "text" },
