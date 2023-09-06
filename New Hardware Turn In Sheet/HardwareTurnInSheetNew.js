@@ -6,7 +6,7 @@ function init() {
 
   // Center-align the page title
   pageTitle.style.textAlign = "center";
-  pageTitle.style.fontSize = "70px"; 
+  pageTitle.style.fontSize = "60px"; 
 
   pageTitle.style.paddingBottom = "25px";  // Change this value to adjust the padding
   pageTitle.style.marginTop = "-20px";  // Change this value to adjust the padding
@@ -20,7 +20,6 @@ function init() {
 }
 
 
-// Handle changes to the actionType select element
 function handleActionTypeChange(actionTypeSelect, pageTitle, contentContainer) {
   const selectedAction = actionTypeSelect.value;
   pageTitle.textContent = actionTypeSelect.options[actionTypeSelect.selectedIndex].text;
@@ -37,9 +36,14 @@ function handleActionTypeChange(actionTypeSelect, pageTitle, contentContainer) {
     generateHardwareTurnInForm(contentContainer);
   } else if (selectedAction === "separation") {
     generateSeparationForm(contentContainer);
-  }
+  } else if (selectedAction === "flowdown") {
+    // Open the external link in a new tab or window
+    generateFlowDownForm(contentContainer);
+  } else if (selectedAction === "SignInSheet") {
+    // Open the external link in a new tab or window
+    window.open("./SignInSheet.pdf", "_blank");
 }
-
+}
 
 
 // Attach an event listener to a select element to handle "Other" option
@@ -84,8 +88,8 @@ function generateForm(formId, action, formFields, container) {
 // Generate hardware turn-in form
 function generateHardwareTurnInForm(container) {
   const formFields = [
-    { label: "Select Grade:", name: "grade", type: "select", options: ["(Select Grade)", "Grade A", "Grade B", "Recycle", "Donation", "Other"] },
-    { label: "Select Hardware Type:", name: "hardwareType", type: "select", options: ["(Select Hardware Type)", "Desktop", "Laptop", "Monitor", "Dock/Port Rep", "Printer", "Mobile Device", "Server", "Other"] },
+    { label: "Select Grade (click refresh to return to sheet selection): ", name: "grade", type: "select", options: ["","(Select Grade)", "Grade A", "Grade B", "Recycle", "Donation", "Other"] },
+    { label: "Select Hardware Type:", name: "hardwareType", type: "select", options: ["","(Select Hardware Type)", "Desktop", "Laptop", "Monitor", "Dock/Port Rep", "Printer", "Mobile Device", "Server", "Other"] },
     { label: "Asset Tag:", name: "assetTag", type: "text" },
     { label: "Manufacturer (Dell, Apple, etc.):", name: "manufacturer", type: "text" },
     { label: "Model:", name: "model", type: "text" },
@@ -99,7 +103,20 @@ function generateHardwareTurnInForm(container) {
 // Generate separation form
 function generateSeparationForm(container) {
   const formFields = [
-    { label: "Colleague:", name: "colleague", type: "text" },
+    { label: "Colleague (click refresh to return to sheet selection):", name: "colleague", type: "text" },
+    { label: "Asset Number:", name: "assetNumber", type: "text" },
+    { label: "Technician:", name: "technician", type: "text" },
+    { label: "Hardware Type:", name: "hardwareType", type: "text" },
+    { label: "RITM Number:", name: "ritmNumber", type: "text" },
+    { label: "Notes (once done, press Ctrl-P or Cmd-P to generate a print view of the form):", name: "notes", type: "textarea" }
+  ];
+
+  generateForm("separationForm", "submit_separation.php", formFields, container);
+}
+
+function generateFlowDownForm(container) {
+  const formFields = [
+    { label: "Colleague (click refresh to return to sheet selection):", name: "colleague", type: "text" },
     { label: "Asset Number:", name: "assetNumber", type: "text" },
     { label: "Technician:", name: "technician", type: "text" },
     { label: "Hardware Type:", name: "hardwareType", type: "text" },
