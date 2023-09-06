@@ -1,0 +1,60 @@
+/* Apply basic styling to the body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+/* Style form labels */
+label {
+  display: inline-block;
+  width: 1500px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 17px;
+}
+
+/* Style input and select elements */
+input[type="text"],
+select,
+textarea {
+  box-sizing: border-box; /* Include padding and border in width calculation */
+  width: 100%;
+  padding: 10px; /* Adjust padding for consistency */
+  margin: 10px 0; /* Adjust margin for symmetry */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 17px;
+  margin-bottom: 31px;
+}
+
+
+/* Apply hover effect to submit button */
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Style section headers */
+h1 {
+  margin-bottom: 30px;
+}
+
+/* Style the form sections */
+#hardwareTurnInSection,
+#separationSection {
+  margin-bottom: 30px;
+}
+
+/* Hide select dropdown arrow in Firefox */
+select::-moz-focus-inner {
+  border: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  label {
+      width: 100%;
+  }
+}
+
